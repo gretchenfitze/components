@@ -41,7 +41,7 @@ class Menu {
 	}
 
 	_deleteElement (event) {
-		event.target.parentNode.parentNode.removeChild(event.target.parentNode);
+		event.target.parentNode.remove();
 	}
 
 }
