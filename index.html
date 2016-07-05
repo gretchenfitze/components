@@ -8,12 +8,18 @@
 <body>
 
 <div class="menu">
-	<div class="menu__title">Сладости (нажми меня)!</div>
-	<div class="menu__list">
-		<div class="menu__item">Торт</div>
-		<div class="menu__item">Пончик</div>
-		<div class="menu__item">Пирожное</div>
-	</div>
+	<div class="menu__title" data-action="open">Список покупок</div>
+	<ul class="menu__list">
+		<li class="menu__item" data-index="0">
+			<span data-action="pick">Хлеб <b>2 батона</b></span>
+		</li>
+		<li class="menu__item" data-index="1">
+			<span data-action="pick">Сыр <b>300 г</b></span>
+		</li>
+		<li class="menu__item" data-index="2">
+			<span data-action="pick">Молоко <b>1 л</b></span>
+		</li>
+	</ul>
 </div>
 
 <!-- Dependencies -->

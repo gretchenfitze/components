@@ -1,3 +1,9 @@
-let menu = new Menu({
-	el: document.querySelector('.menu')
-});
+(function () {
+	'use strict';
+
+	let Menu = window.Menu;
+
+	new Menu({
+		el: document.querySelector('.menu')
+	});
+})();

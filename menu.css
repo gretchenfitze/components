@@ -6,11 +6,12 @@
 	color: #37474F;
 	font-size: 24px;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	cursor: pointer;
 }
 
 .menu_open .menu__list {
 	display: block;
+	padding: 0;
+	list-style: none;
 }
 
 .menu__item {
@@ -21,6 +22,11 @@
 	cursor: pointer;
 }
 
+.menu__item b:before {
+	content: " - ";
+	font-weight: normal;
+}
+
 .menu__item:hover {
 	background: #BBDEFB;
 	color: #311B92;
@@ -29,6 +35,7 @@
 .menu__title {
 	margin-bottom: 10px;
 	font-weight: 700;
+	cursor: pointer;
 }
 
 .menu__title:hover {
@@ -48,6 +55,7 @@
 	color: #ef9a9a;
 	font-size: 24px;
 	line-height: 35px;
+	cursor: pointer;
 }
 
 .menu__remove-button:hover {
