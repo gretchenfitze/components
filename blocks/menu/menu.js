@@ -1,6 +1,5 @@
 (function () {
 	'use strict';
-
 	/**
 	 * @class Menu
 	 */
@@ -12,41 +11,35 @@
 		 */
 		constructor(options) {
 			this.el = options.el;
-			this.items = this.el.querySelectorAll('.menu__item');
+			this.data = options.data;
+
+			this.render();
 			this.list = this.el.querySelector('menu__list');
-
 			this._initEvents();
-			this._addRemoveButtons();
-		}
-
-		_addRemoveButtons() {
-			Array.prototype.forEach.call(this.items, function(item) {
-				let removeButton = document.createElement('button');
-				removeButton.classList.add('menu__remove-button');
-				removeButton.dataset.action = 'remove';
-				removeButton.innerHTML = '✖';
-				item.appendChild(removeButton);
-			});
 		}
 
 		/**
 		* @param  {HTMLElement} item
 		*/
 		removeItem (item) {
-			let index = +item.parentNode.dataset.index;
+			let index = parseInt(item.parentNode.dataset.index);
 			this.trigger('remove', {
 				index
 			});
-			this.list.removeChild(item.parentNode);
+			item.parentNode.remove();
 		}
 
 		/**
 		* @param {HTMLElement} item
 		*/
 		pickItem(item) {
+			let pickedItem = item;
+			if (!item.classList.contains('menu__item')) {
+				pickedItem = item.parentNode;
+			}
 			this.trigger('pick', {
-				href: item.getAttribute('href'),
-				anchor: item.textContent
+				name: pickedItem.firstChild.textContent,
+				quantity: pickedItem.childNodes[1].textContent
 			});
 		}
 
@@ -56,6 +49,15 @@
 
 		_initEvents () {
 			this.el.addEventListener('click', this._onClick.bind(this));
+		}
+
+		get _template() {
+			return document.querySelector('#menu').innerHTML;
+		}
+
+		render() {
+			let templateEngine = window.templateEngine;
+			this.el.innerHTML = templateEngine(this._template, this.data);
 		}
 
 		/**

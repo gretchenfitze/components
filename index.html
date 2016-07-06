@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Faviconer</title>
+	<title>Список покупок</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="menu.css">
+	<link rel="stylesheet" type="text/css" href="blocks/menu/menu.css">
 </head>
 <body>
 
-<div class="menu">
-	<div class="menu__title" data-action="open">Список покупок</div>
-	<ul class="menu__list">
-		<li class="menu__item" data-index="0">
-			<span data-action="pick">Хлеб <b>2 батона</b></span>
-		</li>
-		<li class="menu__item" data-index="1">
-			<span data-action="pick">Сыр <b>300 г</b></span>
-		</li>
-		<li class="menu__item" data-index="2">
-			<span data-action="pick">Молоко <b>1 л</b></span>
-		</li>
-	</ul>
+<div class="app">
+	<div class="js-menu"></div>
 </div>
 
+<script type="text/template" id="menu">
+<div class="menu">
+	<div class="menu__title" data-action="open"><%this.title%></div>
+		<ul class="menu__list">
+			<%for (let i = 0; i < this.items.length; i++) {%>
+				<li class="menu__item" data-index="<%i%>" data-action="pick">
+					<b data-action="pick"><%this.items[i].name%></b><span data-action="pick"><%this.items[i].quantity%></span>
+					<button class="menu__remove-button" data-action="remove">✖</button>
+				</li>
+			<%}%>
+		</ul>
+	</div>
+</div>
+</script>
+
 <!-- Dependencies -->
-<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript" src="templates/template-engine.js"></script>
+<script type="text/javascript" src="blocks/menu/menu.js"></script>
 
 <!-- Application -->
-<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="blocks/app/app.js"></script>
 
 </body>
 </html>
