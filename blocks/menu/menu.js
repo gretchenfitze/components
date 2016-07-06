@@ -11,10 +11,12 @@
 		 */
 		constructor(options) {
 			this.el = options.el;
-			this.data = options.data;
+			this.data = Object.assign({}, options.data);
+			this.templateEngine = window.templateEngine;
 
 			this.render();
-			this.list = this.el.querySelector('menu__list');
+			this.list = this.el.querySelector('.menu__list');
+
 			this._initEvents();
 		}
 
@@ -47,6 +49,21 @@
 			this.el.classList.toggle('menu_open');
 		}
 
+		openForm() {
+			this.el.querySelector('.menu__add-goods').classList.toggle('menu__form_open');
+		}
+
+		addElement() {
+			this.form = this.el.querySelector('form');
+			let newElement = {
+				name: this.form.elements[0].value,
+				quantity: this.form.elements[1].value
+			};
+			this.data.items.push(newElement);
+			this.trigger('add', newElement);
+			this.render();
+		}
+
 		_initEvents () {
 			this.el.addEventListener('click', this._onClick.bind(this));
 		}
@@ -56,8 +73,7 @@
 		}
 
 		render() {
-			let templateEngine = window.templateEngine;
-			this.el.innerHTML = templateEngine(this._template, this.data);
+			this.el.innerHTML = this.templateEngine(this._template, this.data);
 		}
 
 		/**
@@ -79,6 +95,14 @@
 			case 'open':
 				this.openMenu();
 				break;
+
+			case 'form':
+				this.openForm();
+				break;
+
+			case 'add':
+				this.addElement();
+				break;
 			}
 		}
 
@@ -91,8 +115,8 @@
 				bubbles: true,
 				detail: data
 			});
-
 			this.el.dispatchEvent(widgetEvent);
+
 			console.log(name, data);
 		}
 	}

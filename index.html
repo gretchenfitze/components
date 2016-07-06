@@ -3,18 +3,22 @@
 <head>
 	<title>Список покупок</title>
 	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="blocks/app/app.css">
 	<link rel="stylesheet" type="text/css" href="blocks/menu/menu.css">
 </head>
 <body>
 
 <div class="app">
-	<div class="js-menu"></div>
+	<div class="js-menu-list"></div>
+	<div class="js-menu-recipe"></div>
 </div>
 
+<!-- Menu template -->
 <script type="text/template" id="menu">
 <div class="menu">
 	<div class="menu__title" data-action="open"><%this.title%></div>
-		<ul class="menu__list">
+	<div class="menu__list">
+		<ul>
 			<%for (let i = 0; i < this.items.length; i++) {%>
 				<li class="menu__item" data-index="<%i%>" data-action="pick">
 					<b data-action="pick"><%this.items[i].name%></b><span data-action="pick"><%this.items[i].quantity%></span>
@@ -22,6 +26,14 @@
 				</li>
 			<%}%>
 		</ul>
+		<button class="menu__add-button" data-action="form">✚</button>
+		<div class="menu__add-goods">
+			<form>
+				<input type="text" name="good-name" placeholder="Наименование">
+				<input type="text" name="good-quantity" placeholder="Количество">
+				<input data-action="add" type="submit" value="Добавить">
+			</form>
+		</div>
 	</div>
 </div>
 </script>
