@@ -1,10 +1,24 @@
 (function () {
 	'use strict';
 
+  // Import Menu constructor
 	let Menu = window.Menu;
 
-	new Menu({
+	function activateMenuListeners(menu) {
+		menu.el.addEventListener('remove', function (event) {
+			menu.removeItem(event.detail);
+		});
+
+		menu.el.addEventListener('add', function (event) {
+			menu.addItem(event.detail);
+		});
+
+		window.menu = menu;
+	}
+
+	let menuList = new Menu({
 		el: document.querySelector('.js-menu-list'),
+		template: '#menu',
 		data: {
 			title: 'Список покупок',
 			items: [
@@ -24,8 +38,11 @@
 		}
 	});
 
-	new Menu({
+	activateMenuListeners(menuList);
+
+	let menuRecipe = new Menu({
 		el: document.querySelector('.js-menu-recipe'),
+		template: '#menu',
 		data: {
 			title: 'Рецепт',
 			items: [
@@ -52,4 +69,7 @@
 			]
 		}
 	});
-})(window);
+
+	activateMenuListeners(menuRecipe);
+
+})();

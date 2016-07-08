@@ -1,34 +1,34 @@
 (function () {
 	'use strict';
+
+	// Import classes constructor
+	let Component = window.Component;
+	let Form = window.Form;
+
 	/**
 	 * @class Menu
 	 */
-	class Menu {
+	class Menu extends Component {
 		/**
 		 * @constructor
 		 * @param	{Object} options
 		 * @param	{HTMLElement} options.el
 		 */
 		constructor(options) {
+			super(options);
 			this.el = options.el;
-			this.data = Object.assign({}, options.data);
-			this.templateEngine = window.templateEngine;
-
-			this.render();
-			this.list = this.el.querySelector('.menu__list');
-
-			this._initEvents();
 		}
 
-		/**
-		* @param  {HTMLElement} item
-		*/
-		removeItem (item) {
-			let index = parseInt(item.parentNode.dataset.index);
-			this.trigger('remove', {
-				index
+		openMenu() {
+			this.el.classList.toggle('menu_open');
+		}
+
+		render() {
+			super.render();
+			this.form = new Form({
+				el: this.el.querySelector('.js-form'),
+				template: '#form'
 			});
-			item.parentNode.remove();
 		}
 
 		/**
@@ -45,39 +45,35 @@
 			});
 		}
 
-		openMenu() {
-			this.el.classList.toggle('menu_open');
-		}
-
-		openForm() {
-			this.el.querySelector('.menu__add-goods').classList.toggle('menu__form_open');
-		}
-
-		addElement() {
-			this.form = this.el.querySelector('form');
-			let newElement = {
-				name: this.form.elements[0].value,
-				quantity: this.form.elements[1].value
-			};
-			this.data.items.push(newElement);
-			this.trigger('add', newElement);
+		addItem(item) {
+			this.data.items.push(item);
 			this.render();
 		}
 
-		_initEvents () {
-			this.el.addEventListener('click', this._onClick.bind(this));
+		/**
+		* @param  {HTMLElement} item
+		* @private
+		*/
+		_onRemoveClick(item) {
+			let index = parseInt(item.parentNode.dataset.index);
+			this.trigger('remove', {
+				index
+			});
 		}
 
-		get _template() {
-			return document.querySelector('#menu').innerHTML;
-		}
-
-		render() {
-			this.el.innerHTML = this.templateEngine(this._template, this.data);
+		/**
+		* @param  {HTMLElement} item
+		*/
+		removeItem (removedItem) {
+			this.data.items = this.data.items.filter((item, index) => {
+				return index !== removedItem.index;
+			});
+			this.render();
 		}
 
 		/**
 		 * @param  {Event} event
+		 * @private
 		 */
 		_onClick (event) {
 			event.preventDefault();
@@ -85,7 +81,7 @@
 
 			switch (item.dataset.action) {
 			case 'remove':
-				this.removeItem(item);
+				this._onRemoveClick(item);
 				break;
 
 			case 'pick':
@@ -95,31 +91,10 @@
 			case 'open':
 				this.openMenu();
 				break;
-
-			case 'form':
-				this.openForm();
-				break;
-
-			case 'add':
-				this.addElement();
-				break;
 			}
-		}
-
-		/**
-		 * @param  {string} name event type
-		 * @param  {Object} data event object
-		 */
-		trigger(name, data) {
-			let widgetEvent = new CustomEvent(name, {
-				bubbles: true,
-				detail: data
-			});
-			this.el.dispatchEvent(widgetEvent);
-
-			console.log(name, data);
 		}
 	}
 
+	// Export
 	window.Menu = Menu;
-})(window);
+})();

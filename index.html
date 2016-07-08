@@ -3,8 +3,9 @@
 <head>
 	<title>Список покупок</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="blocks/app/app.css">
+	<link rel="stylesheet" type="text/css" href="blocks/form/form.css">
 	<link rel="stylesheet" type="text/css" href="blocks/menu/menu.css">
+	<link rel="stylesheet" type="text/css" href="blocks/app/app.css">
 </head>
 <body>
 
@@ -26,20 +27,26 @@
 				</li>
 			<%}%>
 		</ul>
-		<button class="menu__add-button" data-action="form">✚</button>
-		<div class="menu__add-goods">
-			<form>
-				<input type="text" name="good-name" placeholder="Наименование">
-				<input type="text" name="good-quantity" placeholder="Количество">
-				<input data-action="add" type="submit" value="Добавить">
-			</form>
-		</div>
+		<div class="js-form"></div>
 	</div>
+</div>
+</script>
+
+<script type="text/template" id="form">
+<button class="menu__add-button" data-action="form">✚</button>
+<div class="menu__add-goods">
+	<form class="form">
+		<input type="text" name="good-name" placeholder="Наименование">
+		<input type="text" name="good-quantity" placeholder="Количество">
+		<input data-action="add" type="submit" value="Добавить">
+	</form>
 </div>
 </script>
 
 <!-- Dependencies -->
 <script type="text/javascript" src="templates/template-engine.js"></script>
+<script type="text/javascript" src="blocks/component/component.js"></script>
+<script type="text/javascript" src="blocks/form/form.js"></script>
 <script type="text/javascript" src="blocks/menu/menu.js"></script>
 
 <!-- Application -->
