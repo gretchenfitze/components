@@ -1,56 +1,75 @@
 (function () {
 	'use strict';
 
-  // Import Menu constructor
+	// Import Menu and Model constructor
 	let Menu = window.Menu;
+	let Model = window.Model;
 
 	/**
-	 * Set Menu listeners for adding and deleting items
-	 *
-	 * @param  {HTMLElement}
+	 * @class App
 	 */
-	function activateMenuListeners(menu) {
-		menu.el.addEventListener('remove', function (event) {
-			menu.removeItem(event.detail);
-		});
+	class App {
+		/**
+		 * @constructor
+		 */
+		constructor(options) {
+			this.model = new Model({
+				url: 'menu',
+				id: options.id
+			});
+			this.menu = new Menu({
+				el: document.querySelector(options.el),
+				template: '#menu',
+				data: {
+					title: '',
+					items: []
+				}
+			});
 
-		menu.el.addEventListener('add', function (event) {
-			menu.addItem(event.detail);
-		});
-
-		window.menu = menu;
-	}
-
-	/**
-	 * Send XMLHttpRequest to get items for new Menu
-	 *
-	 * @param  {String}
-	 */
-	function sendDataRequest(path) {
-		let xhr = new XMLHttpRequest();
-		xhr.open('GET', path, false);
-		xhr.send();
-		if (xhr.status != 200) {
-			alert( xhr.status + ': ' + xhr.statusText );
+			this.model.fetch(this.menu.render.bind(this.menu));
+			this.activateMenuListener('remove', this._onRemove);
+			this.activateMenuListener('add', this._onAdd);
 		}
-		return JSON.parse(xhr.responseText);
+
+		activateMenuListener(name, func) {
+			this.menu.el.addEventListener(name, func.bind(this));
+		}
+
+		/**
+		 * @param  {event} event
+		 * @private
+		 */
+		_onRemove(event) {
+			this.menu.removeItem(event.detail);
+			this._saveModelData();
+		}
+
+		/**
+		 * @param  {event} event
+		 * @private
+		 */
+		_onAdd(event) {
+			this.menu.addItem(event.detail);
+			this._saveModelData();
+		}
+
+		/**
+		 * @private
+		 */
+		_saveModelData() {
+			this.model.setData(this.menu.data);
+			this.model.save();
+		}
 	}
 
-
-	// Create first menu
-	let menuList = new Menu({
-		el: document.querySelector('.js-menu-list'),
-		template: '#menu',
-		data: sendDataRequest('data/shopping-list.json')
+	new App({
+		el: '.js-menu-list',
+		id: 'shoppinglist'
 	});
-	activateMenuListeners(menuList);
 
-	// Create second menu
-	let menuRecipe = new Menu({
-		el: document.querySelector('.js-menu-recipe'),
-		template: '#menu',
-		data: sendDataRequest('data/recipe.json')
+	new App({
+		el: '.js-menu-recipe',
+		id: 'recipe'
 	});
-	activateMenuListeners(menuRecipe);
 
 })();

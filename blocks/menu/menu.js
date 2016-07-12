@@ -23,8 +23,11 @@
 			this.el.classList.toggle('menu_open');
 		}
 
-		render() {
-			super.render();
+		/**
+		 * @param  {Object|undefined} data
+		 */
+		render(data) {
+			super.render(data);
 			this.form = new Form({
 				el: this.el.querySelector('.js-form'),
 				template: '#form'
@@ -45,6 +48,9 @@
 			});
 		}
 
+		/**
+		 * @param  {HTMLElement} item
+		 */
 		addItem(item) {
 			this.data.items.push(item);
 			this.render();

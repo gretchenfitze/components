@@ -27,7 +27,10 @@
 			this.el.addEventListener('click', this._onClick.bind(this));
 		}
 
-		render() {
+		render(data) {
+			if (data) {
+				this.data = data;
+			}
 			this.el.innerHTML = this.templateEngine(this._template, this.data);
 		}
 

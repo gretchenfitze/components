@@ -22,8 +22,8 @@
 .menu__title {
 	padding-left: 15px;
 	border-radius: 10px;
-	background: linear-gradient(to top, rgba(136,14,79,.75), rgba(136,14,79,.6));
-	box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+	background: rgba(136,14,79,0.7);
+	box-shadow: 2px 2px 2px rgba(0,0,0,.2);
 	color: #FAFAFA;
 	text-shadow: 2px 2px rgba(0,0,0,.2);
 	line-height: 50px;
@@ -49,7 +49,7 @@
 }
 
 .menu__item b:after {
-	content: " - ";
+	content: " – ";
 	font-weight: normal;
 }
 
@@ -62,7 +62,8 @@
 .menu__remove-button {
 	visibility: hidden;
 	float: right;
-	margin-right: 15px;
+	margin: 0 15px;
+	outline: none;
 	border: none;
 	background: none;
 	color: rgba(136,14,79,0.7);
@@ -76,22 +77,6 @@
 }
 
 .menu__remove-button:hover {
-	transition: 0.5s;
-	transform: rotate(180deg);
-}
-
-.menu__remove-button:focus {
-	outline: 0;
-	border: 0;
-}
-
-.menu__add-button {
-	margin-bottom: 15px;
-	margin-left: 15px;
-	border: none;
-	background: none;
-	color: rgba(136,14,79,0.7);
-	font-size: 26px;
-	line-height: 40px;
-	cursor: pointer;
+	transition: 1.25s;
+	transform: rotate(360deg);
 }
