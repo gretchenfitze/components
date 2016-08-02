@@ -10,8 +10,10 @@
 }
 
 .menu__add-button:hover {
+	-webkit-transition: 1.25s;
 	transition: 1.25s;
-	transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	        transform: rotate(360deg);
 }
 
 .menu__add-goods {
@@ -23,14 +25,22 @@
 }
 
 form {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	flex-wrap: wrap;
-	align-items: stretch;
-	justify-content: flex-start;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	        align-items: stretch;
+	        justify-content: flex-start;
+	-webkit-box-align: stretch;
+	    -ms-flex-align: stretch;
+	-webkit-box-pack: start;
+	    -ms-flex-pack: start;
 }
 
 input {
-	flex: 1 0 auto;
+	    -ms-flex: 1 0 auto;
+	        flex: 1 0 auto;
 	margin: 0.5em 1em;
 	padding: 0 1em;
 	height: 2em;
@@ -41,6 +51,7 @@ input {
 	box-shadow: 2px 2px 5px rgba(0,0,0,.3);
 	font-size: 0.75em;
 	font-family: 'Didact Gothic', sans-serif;
+	-webkit-box-flex: 1;
 }
 
 input[type="text"]:focus {

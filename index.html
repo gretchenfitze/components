@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href='https://fonts.googleapis.com/css?family=Didact+Gothic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>	
+	<link href='https://fonts.googleapis.com/css?family=Didact+Gothic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 	<title>Список покупок</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="blocks/form/form.css">
-	<link rel="stylesheet" type="text/css" href="blocks/menu/menu.css">
-	<link rel="stylesheet" type="text/css" href="blocks/app/app.css">
 </head>
 <body>
 
@@ -15,44 +12,8 @@
 	<div class="js-menu-recipe"></div>
 </div>
 
-<!-- Menu template -->
-<script type="text/template" id="menu">
-<div class="menu">
-	<div class="menu__title" data-action="open"><%this.title%></div>
-	<div class="menu__list">
-		<ul>
-			<%for (let i = 0; i < this.items.length; i++) {%>
-				<li class="menu__item" data-index="<%i%>" data-action="pick">
-					<b data-action="pick"><%this.items[i].name%></b><span data-action="pick"><%this.items[i].quantity%></span>
-					<button class="menu__remove-button" data-action="remove">✖</button>
-				</li>
-			<%}%>
-		</ul>
-		<div class="js-form"></div>
-	</div>
-</div>
-</script>
-
-<script type="text/template" id="form">
-<button class="menu__add-button" data-action="form">✚</button>
-<div class="menu__add-goods">
-	<form class="form">
-		<input type="text" name="good-name" placeholder="Наименование">
-		<input type="text" name="good-quantity" placeholder="Количество">
-		<input data-action="add" type="submit" value="Добавить">
-	</form>
-</div>
-</script>
-
-<!-- Dependencies -->
-<script type="text/javascript" src="templates/template-engine.js"></script>
-<script type="text/javascript" src="blocks/model/model.js"></script>
-<script type="text/javascript" src="blocks/component/component.js"></script>
-<script type="text/javascript" src="blocks/form/form.js"></script>
-<script type="text/javascript" src="blocks/menu/menu.js"></script>
-
 <!-- Application -->
-<script type="text/javascript" src="blocks/app/app.js"></script>
+<script type="text/javascript" src="app.bundle.js"></script>
 
 </body>
 </html>

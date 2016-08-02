@@ -1,7 +1,8 @@
 .menu {
 	box-sizing: border-box;
 	margin: 1em 1em;
-	width: 70vw;
+	max-width: 90vw;
+	width: auto;
 	border-radius: 10px;
 	background-color: rgba(250,250,250 ,0.9);
 	box-shadow: 2px 2px 5px rgba(0,0,0,.3);
@@ -73,6 +74,7 @@
 	border: none;
 	background: none;
 	color: rgba(136,14,79,0.7);
+	content: "✖";
 	font-size: 1em;
 	line-height: 1.75em;
 	cursor: pointer;
@@ -83,6 +85,8 @@
 }
 
 .menu__remove-button:hover {
+	-webkit-transition: 1.25s;
 	transition: 1.25s;
-	transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	        transform: rotate(360deg);
 }

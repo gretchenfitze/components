@@ -1,75 +1,71 @@
-(function () {
-	'use strict';
+import Model from './../model/model.js';
+import Menu from './../menu/menu.js';
+import menuTemplate from './../menu/menu.pug';
+import './app.css';
 
-	// Import Menu and Model constructor
-	let Menu = window.Menu;
-	let Model = window.Model;
-
+/**
+ * @class App
+ */
+class App {
 	/**
-	 * @class App
+	 * @constructor
 	 */
-	class App {
-		/**
-		 * @constructor
-		 */
-		constructor(options) {
-			this.model = new Model({
-				url: 'menu',
-				id: options.id
-			});
-			this.menu = new Menu({
-				el: document.querySelector(options.el),
-				template: '#menu',
-				data: {
-					title: '',
-					items: []
-				}
-			});
+	constructor(options) {
+		this.model = new Model({
+			url: 'menu',
+			id: options.id
+		});
+		this.menu = new Menu({
+			el: document.querySelector(options.el),
+			data: {
+				title: '',
+				items: []
+			},
+			template: menuTemplate
+		});
 
-			this.model.fetch(this.menu.render.bind(this.menu));
-			this.activateMenuListener('remove', this._onRemove);
-			this.activateMenuListener('add', this._onAdd);
-		}
-
-		activateMenuListener(name, func) {
-			this.menu.el.addEventListener(name, func.bind(this));
-		}
-
-		/**
-		 * @param  {event} event
-		 * @private
-		 */
-		_onRemove(event) {
-			this.menu.removeItem(event.detail);
-			this._saveModelData();
-		}
-
-		/**
-		 * @param  {event} event
-		 * @private
-		 */
-		_onAdd(event) {
-			this.menu.addItem(event.detail);
-			this._saveModelData();
-		}
-
-		/**
-		 * @private
-		 */
-		_saveModelData() {
-			this.model.setData(this.menu.data);
-			this.model.save();
-		}
+		this.model.fetch(this.menu.render.bind(this.menu));
+		this.activateMenuListener('remove', this._onRemove);
+		this.activateMenuListener('add', this._onAdd);
 	}
 
-	new App({
-		el: '.js-menu-list',
-		id: 'shoppinglist'
-	});
+	activateMenuListener(name, func) {
+		this.menu.el.addEventListener(name, func.bind(this));
+	}
 
-	new App({
-		el: '.js-menu-recipe',
-		id: 'recipe'
-	});
+	/**
+	 * @param  {event} event
+	 * @private
+	 */
+	_onRemove(event) {
+		this.menu.removeItem(event.detail);
+		this._saveModelData();
+	}
 
-})();
+	/**
+	 * @param  {event} event
+	 * @private
+	 */
+	_onAdd(event) {
+		this.menu.addItem(event.detail);
+		this._saveModelData();
+	}
+
+	/**
+	 * @private
+	 */
+	_saveModelData() {
+		this.model.setData(this.menu.data);
+		this.model.save();
+	}
+}
+
+new App({
+	el: '.js-menu-list',
+	id: 'shoppinglist'
+});
+
+new App({
+	el: '.js-menu-recipe',
+	id: 'recipe'
+});

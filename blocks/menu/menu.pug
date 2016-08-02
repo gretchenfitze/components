@@ -1,0 +1,10 @@
+.menu
+  .menu__title(data-action='open')= title
+  .menu__list
+    ul
+      each item, index in items
+        li.menu__item(data-index=index data-action='pick')
+          b(data-action='pick')= item.name
+          span(data-action='pick')= item.quantity
+          button.menu__remove-button(data-action='remove') ✖
+    .js-form
